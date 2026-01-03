@@ -26,6 +26,7 @@ namespace InventorySearchBar
     public class Plugin : IDalamudPlugin
     {
         public static IClientState ClientState { get; private set; } = null!;
+        public static IPlayerState PlayerState { get; private set; } = null!;
         public static ICommandManager CommandManager { get; private set; } = null!;
         public static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
         public static IFramework Framework { get; private set; } = null!;
@@ -78,6 +79,7 @@ namespace InventorySearchBar
 
         public Plugin(
             IClientState clientState,
+            IPlayerState playerState,
             ICommandManager commandManager,
             IDalamudPluginInterface pluginInterface,
             IFramework framework,
@@ -91,6 +93,7 @@ namespace InventorySearchBar
         )
         {
             ClientState = clientState;
+            PlayerState = playerState;
             CommandManager = commandManager;
             PluginInterface = pluginInterface;
             Framework = framework;
@@ -173,6 +176,7 @@ namespace InventorySearchBar
             builder.RegisterInstance(Framework).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterInstance(Logger).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterInstance(ClientState).AsImplementedInterfaces().AsSelf().ExternallyOwned();
+            builder.RegisterInstance(PlayerState).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterInstance(GameGui).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterInstance(DataManager.GameData).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterInstance(AddonLifecycle).AsImplementedInterfaces().AsSelf().ExternallyOwned();
@@ -237,7 +241,7 @@ namespace InventorySearchBar
 
         private unsafe void Update(IFramework framework)
         {
-            if (Settings == null || ClientState.LocalPlayer == null || _manager == null) return;
+            if (Settings == null || !PlayerState.IsLoaded || _manager == null) return;
 
             if (!_libLoaded)
             {
@@ -256,7 +260,7 @@ namespace InventorySearchBar
 
         private unsafe void Draw()
         {
-            if (Settings == null || ClientState.LocalPlayer == null || _manager == null) return;
+            if (Settings == null || !PlayerState.IsLoaded || _manager == null) return;
 
             if (_manager.ActiveInventory == null)
             {

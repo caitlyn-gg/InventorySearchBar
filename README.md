@@ -1,8 +1,3 @@
-> [!IMPORTANT]  
-> THIS PLUGIN IS NO LONGER MAINTAINED !!!
-> As a replacement you can try the "Vanilla Plus" plugin by [MidoriKami](https://github.com/MidoriKami)
-> which provides similar functionalities.
-
 # Inventory Search Bar Plugin
 
 A Final Fantasy XIV Dalamud Plugin that adds a search bar to the inventory windows to filter items.
@@ -11,7 +6,7 @@ A Final Fantasy XIV Dalamud Plugin that adds a search bar to the inventory windo
 
 Use search bar located at the top of the inventory window to filter your items.
 
-![example](https://github.com/Tischel/InventorySearchBar/blob/master/Images/example_1.gif)
+![example](https://github.com/caitlyn-gg/InventorySearchBar/blob/master/Images/example_1.gif)
 
 ## Filters
 
