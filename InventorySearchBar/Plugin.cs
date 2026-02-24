@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using AllaganLib.Monitors.Interfaces;
+using AllaganLib.Monitors.Services;
 
 namespace InventorySearchBar
 {
@@ -109,7 +111,7 @@ namespace InventorySearchBar
             KeyboardHelper.Initialize();
 
             // allagan tools setup
-            SheetManager = new SheetManager(DataManager.GameData, new SheetManagerStartupOptions()
+            SheetManager = new SheetManager(PluginInterface, DataManager.GameData, new SheetManagerStartupOptions()
             {
                 BuildNpcLevels = false,
                 BuildNpcShops = false,
@@ -180,7 +182,11 @@ namespace InventorySearchBar
             builder.RegisterInstance(GameGui).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterInstance(DataManager.GameData).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterInstance(AddonLifecycle).AsImplementedInterfaces().AsSelf().ExternallyOwned();
-
+            builder.RegisterInstance(PluginInterface).AsImplementedInterfaces().AsSelf().ExternallyOwned();
+            builder.RegisterGeneric(typeof(DalamudLogger<>)).As(typeof(ILogger<>)).SingleInstance();
+ 
+            builder.RegisterType<CCAchievementMonitorConfig>().AsImplementedInterfaces().AsSelf().SingleInstance();
+            builder.RegisterType<AchievementMonitorService>().AsImplementedInterfaces().AsSelf().SingleInstance();
             builder.RegisterType<GameInterface>().AsImplementedInterfaces().AsSelf().SingleInstance();
             builder.RegisterType<CharacterMonitor>().AsImplementedInterfaces().AsSelf().SingleInstance();
             builder.RegisterType<GameUiManager>().AsImplementedInterfaces().AsSelf().SingleInstance();
@@ -332,12 +338,11 @@ namespace InventorySearchBar
 
     internal sealed class DalamudLogger<T> : ILogger<T>
     {
-        private readonly string _name;
+        private readonly string _name = typeof(T).Name;
         private readonly IPluginLog _pluginLog;
 
-        public DalamudLogger(string name, IPluginLog pluginLog)
+        public DalamudLogger(IPluginLog pluginLog)
         {
-            _name = name;
             _pluginLog = pluginLog;
         }
 
@@ -387,5 +392,11 @@ namespace InventorySearchBar
                 _pluginLog.Fatal(sb.ToString());
 
         }
+    }
+    
+    public class CCAchievementMonitorConfig : IAchievementMonitorConfiguration
+    {
+        /// <inheritdoc />
+        public int PollIntervalSeconds { get; set; } = 600;
     }
 }
