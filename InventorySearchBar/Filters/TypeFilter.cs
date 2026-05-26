@@ -5,7 +5,7 @@ namespace InventorySearchBar.Filters
     internal class TypeFilter : Filter
     {
         public override string Name => "Type";
-        public override string HelpText => "Allow to filter items by checking if their type contains the search term.\nExamples: '" + Plugin.Settings.NameFilterTag + ":Medicine', '" + Plugin.Settings.NameFilterAbbreviatedTag + ":ingredient', '" + Plugin.Settings.NameFilterTag + ":necklace'.";
+        public override string HelpText => "Allow to filter items by checking if their type contains the search term.\nExamples: '" + Plugin.Settings.TypeFilterTag + ":Medicine', '" + Plugin.Settings.TypeFilterAbbreviatedTag + ":ingredient', '" + Plugin.Settings.TypeFilterTag + ":necklace'.";
 
         protected override bool Enabled
         {

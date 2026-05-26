@@ -56,6 +56,11 @@ namespace InventorySearchBar
         public string LevelFilterTag = "level";
         public string LevelFilterAbbreviatedTag = "l";
 
+        public bool TradableFilterEnabled = true;
+        public bool  TradableFilterRequireTag = true;
+        public string TradableFilterTag = "tradable";
+        public string TradableFilterAbbreviatedTag = "trade";
+
         #region load / save
         private static string JsonPath = Path.Combine(Plugin.PluginInterface.GetPluginConfigDirectory(), "Settings.json");
         public static Settings Load()

@@ -77,7 +77,8 @@ namespace InventorySearchBar
             new NameFilter(),
             new JobFilter(),
             new Filters.TypeFilter(),
-            new LevelFilter()
+            new LevelFilter(),
+            new TradableFilter()
         };
 
         public Plugin(
