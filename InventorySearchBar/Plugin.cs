@@ -41,6 +41,7 @@ namespace InventorySearchBar
         public static ICondition Condition { get; private set; } = null!;
         public static IAddonLifecycle AddonLifecycle { get; private set; } = null!;
         public static IObjectTable ObjectTable { get; private set; } = null!;
+        public static IUnlockState UnlockState { get; private set; } = null!;
 
         public static string AssemblyLocation { get; private set; } = "";
         public string Name => "InventorySearchBar";
@@ -94,7 +95,8 @@ namespace InventorySearchBar
             IGameInteropProvider gameInteropProvider,
             ICondition condition,
             IAddonLifecycle addonLifecycle,
-            IObjectTable objectTable
+            IObjectTable objectTable,
+            IUnlockState unlockState
         )
         {
             ClientState = clientState;
@@ -111,6 +113,7 @@ namespace InventorySearchBar
             Condition = condition;
             AddonLifecycle = addonLifecycle;
             ObjectTable = objectTable;
+            UnlockState = unlockState;
 
             KeyboardHelper.Initialize();
 
@@ -188,6 +191,7 @@ namespace InventorySearchBar
             builder.RegisterInstance(AddonLifecycle).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterInstance(PluginInterface).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterInstance(ObjectTable).AsImplementedInterfaces().AsSelf().ExternallyOwned();
+            builder.RegisterInstance(UnlockState).AsImplementedInterfaces().AsSelf().ExternallyOwned();
             builder.RegisterGeneric(typeof(DalamudLogger<>)).As(typeof(ILogger<>)).SingleInstance();
  
             builder.RegisterType<CCAchievementMonitorConfig>().AsImplementedInterfaces().AsSelf().SingleInstance();
