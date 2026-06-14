@@ -62,7 +62,7 @@ namespace InventorySearchBar.Inventories
 
         private unsafe int GetCurrentBag()
         {
-            if (_node->UldManager.NodeListCount < 120) { return _currentBag; }
+            if (_node == null || _node->UldManager.NodeListCount < 120) { return _currentBag; }
 
             foreach (KeyValuePair<int, int> tab in _tabsMap)
             {

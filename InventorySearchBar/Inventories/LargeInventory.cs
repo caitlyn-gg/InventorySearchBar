@@ -30,7 +30,7 @@ namespace InventorySearchBar.Inventories
 
         public unsafe void HighlightTabs(bool forced = false)
         {
-            if (_node->UldManager.NodeListCount < 70) { return; }
+            if (_node == null || _node->UldManager.NodeListCount < 70) { return; }
 
             if (!Plugin.Settings.HightlightTabs && !forced) { return; }
 
@@ -51,7 +51,7 @@ namespace InventorySearchBar.Inventories
 
         public unsafe int GetGridOffset()
         {
-            if (_node->UldManager.NodeListCount < 70) { return -1; }
+            if (_node == null || _node->UldManager.NodeListCount < 70) { return -1; }
 
             AtkResNode* firstBagTab = _node->UldManager.NodeList[70];
             if (firstBagTab == null)
