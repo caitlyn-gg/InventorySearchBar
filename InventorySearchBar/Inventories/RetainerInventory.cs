@@ -49,6 +49,9 @@ namespace InventorySearchBar.Inventories
             if (offset == -1) { return; }
 
             AtkUnitBase* grid = (AtkUnitBase*)Plugin.GameGui.GetAddonByName("RetainerGrid", 1).Address;
+            if (grid == null)
+                return;
+            
             UpdateGridHighlights(grid, 3, offset);
 
             HighlightTabs(forced);
@@ -69,6 +72,9 @@ namespace InventorySearchBar.Inventories
             if (_node == null || _node->UldManager.NodeListCount < _tabIndexStart) { return; }
 
             AtkResNode* tab = _node->UldManager.NodeList[_tabIndexStart - index];
+            if (tab == null)
+                return;
+            
             bool resultsInTab = _filter != null && _filter[index].Any(b => b == true);
             SetTabHighlight(tab, resultsInTab);
         }
@@ -80,6 +86,9 @@ namespace InventorySearchBar.Inventories
             for (int i = 0; i < _tabCount; i++)
             {
                 AtkResNode* bagNode = _node->UldManager.NodeList[_tabIndexStart - i];
+                if (bagNode == null)
+                    continue;
+                
                 if (GetSmallTabEnabled(bagNode->GetComponent()))
                 {
                     return i;

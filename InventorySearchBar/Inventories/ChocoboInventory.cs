@@ -76,10 +76,16 @@ namespace InventorySearchBar.Inventories
             if (!Plugin.Settings.HightlightTabs && !forced) { return; }
 
             AtkResNode* firstBagTab = _node->UldManager.NodeList[81];
+            if (firstBagTab == null)
+                return;
+            
             bool resultsInFirstTab = _filter != null && (_filter[0].Any(b => b == true) || _filter[1].Any(b => b == true));
             SetTabHighlight(firstBagTab, resultsInFirstTab);
 
             AtkResNode* secondBagTab = _node->UldManager.NodeList[80];
+            if (secondBagTab == null)
+                return;
+            
             bool resultsInSecondTab = _filter != null && (_filter[2].Any(b => b == true) || _filter[3].Any(b => b == true));
             SetTabHighlight(secondBagTab, resultsInSecondTab);
         }
@@ -89,7 +95,7 @@ namespace InventorySearchBar.Inventories
             if (_node->UldManager.NodeListCount < 80) { return 0; }
 
             AtkResNode* firstBagTab = _node->UldManager.NodeList[80];
-            if (GetTabEnabled(firstBagTab->GetComponent()))
+            if (firstBagTab != null && GetTabEnabled(firstBagTab->GetComponent()))
             {
                 return 2;
             }

@@ -19,6 +19,9 @@ namespace InventorySearchBar.Inventories
             for (int i = 0; i < 2; i++)
             {
                 AtkUnitBase* grid = (AtkUnitBase*)Plugin.GameGui.GetAddonByName("InventoryGrid" + i, 1).Address;
+                if (grid == null)
+                    return;
+                
                 UpdateGridHighlights(grid, 3, offset + i);
             }
 
@@ -32,10 +35,16 @@ namespace InventorySearchBar.Inventories
             if (!Plugin.Settings.HightlightTabs && !forced) { return; }
 
             AtkResNode* firstBagTab = _node->UldManager.NodeList[70];
+            if (firstBagTab == null)
+                return;
+            
             bool resultsInFirstTab = _filter != null && (_filter[0].Any(b => b == true) || _filter[1].Any(b => b == true));
             SetTabHighlight(firstBagTab, resultsInFirstTab);
 
             AtkResNode* secondBagTab = _node->UldManager.NodeList[69];
+            if (secondBagTab == null)
+                return;
+            
             bool resultsInSecondTab = _filter != null && (_filter[2].Any(b => b == true) || _filter[3].Any(b => b == true));
             SetTabHighlight(secondBagTab, resultsInSecondTab);
         }
@@ -45,13 +54,16 @@ namespace InventorySearchBar.Inventories
             if (_node->UldManager.NodeListCount < 70) { return -1; }
 
             AtkResNode* firstBagTab = _node->UldManager.NodeList[70];
+            if (firstBagTab == null)
+                return -1;
+            
             if (GetTabEnabled(firstBagTab->GetComponent()))
             {
                 return 0;
             }
 
             AtkResNode* secondBagTab = _node->UldManager.NodeList[69];
-            if (GetTabEnabled(secondBagTab->GetComponent()))
+            if (secondBagTab != null && GetTabEnabled(secondBagTab->GetComponent()))
             {
                 return 2;
             }
