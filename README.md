@@ -37,6 +37,14 @@ Example: `level:>80` would find all items that require level 81 or higher.\
 Example: `level:=90` would find all items that require level 90.\
 Example: `level:>=80` would find all items that require level 80 or higher.
 
+
+### Tradable
+The item will be highlighted if the tradability matches the search term.\
+Default tags: `trade` and `tradable`.\
+Supported values: `true`, `1`, `yes`, `y` for tradable items, and `false`, `0`, `no`, `n` for untradable items.\
+Example: `trade:y` would find all tradable items.\
+Example: `tradable:false` would find all untradable items.
+
 ## Combining Filters
 
 Multiple filters can be used in a single search.\
